@@ -61,3 +61,13 @@ Feature: Test de APi Personajes de Marvel
     And match response.powers contains "required"
     And match response.alterego contains "required"
     And print response
+
+@Id 7 @actualizacion @actualizacionExitosa
+  Scenario: actualizacion de personaje exitosa
+    Given path '/testuser/api/characters/133'
+    * def requestBody = read('classpath:../request/UpdatePersonsajeRequest.json')
+    And request requestBody
+    When method put
+    Then status 200
+    And match response.name == "Santiago Sanchez"
+    And match response.description == "Ingeniero"
