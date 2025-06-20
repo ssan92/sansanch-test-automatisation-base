@@ -1,4 +1,4 @@
-    @HU639 @marvel
+@HU639 @marvel
 Feature: Test de APi Personajes de Marvel
 
   Background:
@@ -26,4 +26,15 @@ Feature: Test de APi Personajes de Marvel
     When method get
     Then status 404
     And match response.error == "Character not found"
+    And print response
+
+@Id 4 @creacion @creacionExitosa
+  Scenario: creacion de personaje exitosa
+    Given path '/testuser/api/characters'
+    * def uuid = java.util.UUID.randomUUID() + ''
+    * def requestBody = read('classpath:../request/CrearPersonajeRequest.json')
+    * requestBody.name = 'IronMan-' + uuid
+    And request requestBody
+    When method post
+    Then status 201
     And print response
