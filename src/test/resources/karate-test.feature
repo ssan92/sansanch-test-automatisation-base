@@ -80,3 +80,11 @@ Feature: Test de APi Personajes de Marvel
     When method put
     Then status 404
     And match response.error == "Character not found"
+
+
+    @Id 9 @eliminacion @eliminacionNoExiste
+  Scenario: eliminacion de personaje no exitosa
+    Given path '/testuser/api/characters/999'
+    When method delete
+    Then status 404
+    And match response.error == "Character not found"
