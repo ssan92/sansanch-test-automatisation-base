@@ -1,4 +1,4 @@
-@HU639 @marvel
+    @HU639 @marvel
 Feature: Test de APi Personajes de Marvel
 
   Background:
@@ -11,3 +11,11 @@ Feature: Test de APi Personajes de Marvel
     When method get
     Then status 200
     And match response !=null
+
+    @Id 2 @personsajes @personajesPorId
+  Scenario: Obtener lista de personajes por id
+    Given path '/testuser/api/characters/133'
+    When method get
+    Then status 200
+    And match response.id == 133
+    And print response
