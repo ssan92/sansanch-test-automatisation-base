@@ -30,14 +30,11 @@ Feature: Test de APi Personajes de Marvel
 
 @Id 4 @creacion @creacionExitosa
   Scenario: creacion de personaje exitosa
-    Given path '/testuser/api/characters'
-    * def uuid = java.util.UUID.randomUUID() + ''
-    * def requestBody = read('classpath:../request/CrearPersonajeRequest.json')
-    * requestBody.name = 'IronMan-' + uuid
-    And request requestBody
-    When method post
-    Then status 201
-    And print response
+    * def result = call read('classpath:karate-creacion-personsaje.feature') { urlBase: 'http://bp-se-test-cabcd9b246a5.herokuapp.com' }
+    * def personajeId = result.personajeId
+    * def statusCode = result.statusCode
+    * match statusCode == 201
+    * match personajeId != null
 
 @Id 5 @creacion @creacionNoExitosa
   Scenario: creacion de personaje no exitosa
