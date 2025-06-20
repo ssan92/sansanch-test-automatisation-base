@@ -82,9 +82,17 @@ Feature: Test de APi Personajes de Marvel
     And match response.error == "Character not found"
 
 
-    @Id 9 @eliminacion @eliminacionNoExiste
+    @Id 9 @eliminacion @eliminacionNoExistosa
   Scenario: eliminacion de personaje no exitosa
     Given path '/testuser/api/characters/999'
     When method delete
     Then status 404
     And match response.error == "Character not found"
+
+  @Id 10 @eliminacion @eliminacionExistosa
+  Scenario: eliminacion de personaje exitosa
+    * def result = call read('classpath:karate-creacion-personsaje.feature') { urlBase: 'http://bp-se-test-cabcd9b246a5.herokuapp.com' }
+    * def personajeId = result.personajeId
+    Given path '/testuser/api/characters/',personajeId
+    When method delete
+    Then status 204
