@@ -71,3 +71,12 @@ Feature: Test de APi Personajes de Marvel
     Then status 200
     And match response.name == "Santiago Sanchez"
     And match response.description == "Ingeniero"
+
+    @Id 8 @actualizacion @actualizacionNoExitosa
+  Scenario: actualizacion de personaje no exitosa
+    Given path '/testuser/api/characters/999'
+    * def requestBody = read('classpath:../request/UpdatePersonsajeRequest.json')
+    And request requestBody
+    When method put
+    Then status 404
+    And match response.error == "Character not found"
