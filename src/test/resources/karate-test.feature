@@ -48,3 +48,16 @@ Feature: Test de APi Personajes de Marvel
     Then status 400
     And match response.error contains "already exists"
     And print response
+
+@Id 6 @creacion @creacionFaltanCampos
+  Scenario: creacion de personaje, faltan campos obligatorios
+    Given path '/testuser/api/characters'
+    * def requestBody = read('classpath:../request/CrearPersonajeCampoObligatorio.json')
+    And request requestBody
+    When method post
+    Then status 400
+    And match response.name contains "required"
+    And match response.description contains "required"
+    And match response.powers contains "required"
+    And match response.alterego contains "required"
+    And print response
