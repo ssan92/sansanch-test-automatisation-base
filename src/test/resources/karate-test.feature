@@ -19,3 +19,11 @@ Feature: Test de APi Personajes de Marvel
     Then status 200
     And match response.id == 133
     And print response
+
+  @Id 3 @personsajes @personajesPorIdNoExiste
+  Scenario: Obtener lista de personajes por id y el id no existe
+    Given path '/testuser/api/characters/1'
+    When method get
+    Then status 404
+    And match response.error == "Character not found"
+    And print response
