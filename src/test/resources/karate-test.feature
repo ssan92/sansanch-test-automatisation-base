@@ -38,3 +38,13 @@ Feature: Test de APi Personajes de Marvel
     When method post
     Then status 201
     And print response
+
+@Id 5 @creacion @creacionNoExitosa
+  Scenario: creacion de personaje no exitosa
+    Given path '/testuser/api/characters'
+    * def requestBody = read('classpath:../request/CrearPersonsajeExistenteRequest.json')
+    And request requestBody
+    When method post
+    Then status 400
+    And match response.error contains "already exists"
+    And print response
